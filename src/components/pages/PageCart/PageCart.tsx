@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import ReviewCart from "~/components/pages/PageCart/components/ReviewCart";
-import ReviewOrder from "~/components/pages/PageCart/components/ReviewOrder";
-import PaperLayout from "~/components/PaperLayout/PaperLayout";
-import { Address, AddressSchema, Order } from "~/models/Order";
-import Box from "@mui/material/Box";
-import { useCart, useInvalidateCart } from "~/queries/cart";
-import AddressForm from "~/components/pages/PageCart/components/AddressForm";
-import { useSubmitOrder } from "~/queries/orders";
+import React, { useState } from 'react';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import ReviewCart from '~/components/pages/PageCart/components/ReviewCart';
+import ReviewOrder from '~/components/pages/PageCart/components/ReviewOrder';
+import PaperLayout from '~/components/PaperLayout/PaperLayout';
+import { Address, AddressSchema, Order } from '~/models/Order';
+import Box from '@mui/material/Box';
+import { useCart, useInvalidateCart } from '~/queries/cart';
+import AddressForm from '~/components/pages/PageCart/components/AddressForm';
+import { useSubmitOrder } from '~/queries/orders';
 
 enum CartStep {
   ReviewCart,
@@ -40,7 +40,7 @@ const Success = () => (
   </React.Fragment>
 );
 
-const steps = ["Review your cart", "Shipping address", "Review your order"];
+const steps = ['Review your cart', 'Shipping address', 'Review your order'];
 
 export default function PageCart() {
   const { data = [] } = useCart();
@@ -66,7 +66,7 @@ export default function PageCart() {
       address,
     };
 
-    submitOrder(values as Omit<Order, "id">, {
+    submitOrder(values as Omit<Order, 'id'>, {
       onSuccess: () => {
         setActiveStep(activeStep + 1);
         invalidateCart();
@@ -116,7 +116,7 @@ export default function PageCart() {
       {!isCartEmpty &&
         activeStep !== CartStep.Address &&
         activeStep !== CartStep.Success && (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             {activeStep !== CartStep.ReviewCart && (
               <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                 Back
@@ -128,7 +128,7 @@ export default function PageCart() {
               sx={{ mt: 3, ml: 1 }}
               onClick={handleNext}
             >
-              {activeStep === steps.length - 1 ? "Place order" : "Next"}
+              {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
             </Button>
           </Box>
         )}

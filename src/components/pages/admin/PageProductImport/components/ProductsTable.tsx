@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import { formatAsPrice } from "~/utils/utils";
+import { Link } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import { formatAsPrice } from '~/utils/utils';
 import {
   useAvailableProducts,
   useDeleteAvailableProduct,
   useInvalidateAvailableProducts,
-} from "~/queries/products";
+} from '~/queries/products';
 
 export default function ProductsTable() {
   const { data = [] } = useAvailableProducts();

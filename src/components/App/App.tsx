@@ -1,12 +1,12 @@
-import { Routes, Route } from "react-router-dom";
-import MainLayout from "~/components/MainLayout/MainLayout";
-import PageProductForm from "~/components/pages/PageProductForm/PageProductForm";
-import PageOrders from "~/components/pages/PageOrders/PageOrders";
-import PageOrder from "~/components/pages/PageOrder/PageOrder";
-import PageProductImport from "~/components/pages/admin/PageProductImport/PageProductImport";
-import PageCart from "~/components/pages/PageCart/PageCart";
-import PageProducts from "~/components/pages/PageProducts/PageProducts";
-import { Typography } from "@mui/material";
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from '~/components/MainLayout/MainLayout';
+import PageProductForm from '~/components/pages/PageProductForm/PageProductForm';
+import PageOrders from '~/components/pages/PageOrders/PageOrders';
+import PageOrder from '~/components/pages/PageOrder/PageOrder';
+import PageProductImport from '~/components/pages/admin/PageProductImport/PageProductImport';
+import PageCart from '~/components/pages/PageCart/PageCart';
+import PageProducts from '~/components/pages/PageProducts/PageProducts';
+import { Typography } from '@mui/material';
 
 function App() {
   return (
