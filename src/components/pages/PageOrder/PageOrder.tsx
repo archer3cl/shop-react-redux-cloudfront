@@ -1,28 +1,28 @@
-import React from "react";
-import { Order, OrderItem } from "~/models/Order";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import PaperLayout from "~/components/PaperLayout/PaperLayout";
-import Typography from "@mui/material/Typography";
-import API_PATHS from "~/constants/apiPaths";
-import { CartItem } from "~/models/CartItem";
-import { AvailableProduct } from "~/models/Product";
-import ReviewOrder from "~/components/pages/PageCart/components/ReviewOrder";
-import { OrderStatus, ORDER_STATUS_FLOW } from "~/constants/order";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import { Field, Form, Formik, FormikProps } from "formik";
-import Grid from "@mui/material/Grid";
-import TextField from "~/components/Form/TextField";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import Box from "@mui/material/Box";
-import { useQueries } from "react-query";
-import { useInvalidateOrder, useUpdateOrderStatus } from "~/queries/orders";
+import React from 'react';
+import { Order, OrderItem } from '~/models/Order';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import PaperLayout from '~/components/PaperLayout/PaperLayout';
+import Typography from '@mui/material/Typography';
+import API_PATHS from '~/constants/apiPaths';
+import { CartItem } from '~/models/CartItem';
+import { AvailableProduct } from '~/models/Product';
+import ReviewOrder from '~/components/pages/PageCart/components/ReviewOrder';
+import { OrderStatus, ORDER_STATUS_FLOW } from '~/constants/order';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import { Field, Form, Formik, FormikProps } from 'formik';
+import Grid from '@mui/material/Grid';
+import TextField from '~/components/Form/TextField';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
+import Box from '@mui/material/Box';
+import { useQueries } from 'react-query';
+import { useInvalidateOrder, useUpdateOrderStatus } from '~/queries/orders';
 
 type FormValues = {
   status: OrderStatus;
@@ -33,14 +33,14 @@ export default function PageOrder() {
   const { id } = useParams<{ id: string }>();
   const results = useQueries([
     {
-      queryKey: ["order", { id }],
+      queryKey: ['order', { id }],
       queryFn: async () => {
         const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
         return res.data;
       },
     },
     {
-      queryKey: "products",
+      queryKey: 'products',
       queryFn: async () => {
         const res = await axios.get<AvailableProduct[]>(
           `${API_PATHS.bff}/product/available`
@@ -60,7 +60,7 @@ export default function PageOrder() {
       return order.items.map((item: OrderItem) => {
         const product = products.find((p) => p.id === item.productId);
         if (!product) {
-          throw new Error("Product not found");
+          throw new Error('Product not found');
         }
         return { product, count: item.count };
       });
@@ -87,7 +87,7 @@ export default function PageOrder() {
       <Typography variant="h6">Change status:</Typography>
       <Box py={2}>
         <Formik
-          initialValues={{ status: lastStatusItem.status, comment: "" }}
+          initialValues={{ status: lastStatusItem.status, comment: '' }}
           enableReinitialize
           onSubmit={(values) =>
             updateOrderStatus(
@@ -108,7 +108,7 @@ export default function PageOrder() {
                     fullWidth
                     helperText={
                       values.status === OrderStatus.Approved
-                        ? "Setting status to APPROVED will decrease products count from stock"
+                        ? 'Setting status to APPROVED will decrease products count from stock'
                         : undefined
                     }
                   >
