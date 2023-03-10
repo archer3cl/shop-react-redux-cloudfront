@@ -16,3 +16,6 @@ export type AvailableProduct = Yup.InferType<typeof AvailableProductSchema>;
 export type ResponseProducts = {
   data: Array<AvailableProduct>;
 };
+export type ResponseProduct = {
+  data: AvailableProduct;
+};

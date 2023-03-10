@@ -1,6 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import API_PATHS from '~/constants/apiPaths';
-import { AvailableProduct, ResponseProducts } from '~/models/Product';
+import {
+  AvailableProduct,
+  ResponseProduct,
+  ResponseProducts,
+} from '~/models/Product';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import React from 'react';
 
@@ -28,10 +32,10 @@ export function useAvailableProduct(id?: string) {
   return useQuery<AvailableProduct, AxiosError>(
     ['product', { id }],
     async () => {
-      const res = await axios.get<AvailableProduct>(
-        `${API_PATHS.bff}/product/${id}`
+      const res = await axios.get<ResponseProduct>(
+        `${API_PATHS.bff}/products/${id}`
       );
-      return res.data;
+      return res.data.data;
     },
     { enabled: !!id }
   );
