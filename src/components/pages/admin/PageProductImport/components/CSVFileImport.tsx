@@ -1,14 +1,21 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 type CSVFileImportProps = {
   url: string;
   title: string;
+  resetError: () => void;
+  onAuthError: (statusCode: number, message: string) => void;
 };
 
-export default function CSVFileImport({ url, title }: CSVFileImportProps) {
+export default function CSVFileImport({
+  url,
+  title,
+  resetError,
+  onAuthError,
+}: CSVFileImportProps) {
   const [file, setFile] = React.useState<File>();
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,24 +31,38 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
   };
 
   const uploadFile = async () => {
-    console.log('uploadFile to', url);
-    if (!file) return;
-    // Get the presigned URL
-    const response = await axios({
-      method: 'GET',
-      url,
-      params: {
-        name: encodeURIComponent(file.name),
-      },
-    });
-    console.log('File to upload: ', file.name);
-    console.log('Uploading to: ', response.data);
-    const result = await fetch(response.data, {
-      method: 'PUT',
-      body: file,
-    });
-    console.log('Result: ', result);
-    setFile(undefined);
+    try {
+      resetError();
+      console.log('uploadFile to', url);
+      if (!file) return;
+      // Get the presigned URL
+      const authToken = localStorage.getItem('authorization_token');
+      const response = await axios({
+        method: 'GET',
+        url,
+        params: {
+          name: encodeURIComponent(file.name),
+        },
+        headers: {
+          ...(authToken && { Authorization: `Basic ${authToken}` }),
+        },
+      });
+      console.log('File to upload: ', file.name);
+      console.log('Uploading to: ', response.data);
+      const result = await fetch(response.data, {
+        method: 'PUT',
+        body: file,
+      });
+      console.log('Result: ', result);
+      setFile(undefined);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const response = error.response;
+        if (response) onAuthError(response.status, response.data.message);
+      } else {
+        console.log(error);
+      }
+    }
   };
   return (
     <Box>
