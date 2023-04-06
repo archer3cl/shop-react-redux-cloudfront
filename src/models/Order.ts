@@ -33,3 +33,11 @@ export const OrderSchema = Yup.object({
 }).defined();
 
 export type Order = Yup.InferType<typeof OrderSchema>;
+
+export type ResponseOrders = {
+  data: Array<Order>;
+};
+
+export type ResponseOrder = {
+  data: Order;
+};
